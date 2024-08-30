@@ -1,0 +1,24 @@
+const LogoEstadoSP = () => <div>...</div>
+const RedesSociais = () => <div>fr, linkedin...</div>
+const LogoFatec = () => <img>
+const LogoCPS = () = > <img>
+const Busca = () => <input>
+const BarraNavegacao = () => <nav><li></li></nav>
+const Carrossel = () => <div></div>
+const PaginaPrincipal = () =>...
+
+PaginaPrincipal()
+
+<PaginaPrincipal>
+  <div>
+    <LogoEstadoSP></LogoEstadoSP>
+    <RedesSociais></RedesSociais>
+  </div>
+  <div>
+    <LogoFatec></LogoFatec>
+    <LogoCPS></LogoCPS>
+    <Busca></Busca>
+  </div>
+  <BarraNavegacao></BarraNavegacao>
+  <Carrossel></Carrossel>
+</PaginaPrincipal>
