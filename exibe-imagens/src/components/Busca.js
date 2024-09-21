@@ -1,7 +1,9 @@
 // rcc
 import React, { Component } from 'react'
-import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
+import { IconField } from 'primereact/iconfield'
+import { InputIcon } from 'primereact/inputicon'
+import { InputText } from 'primereact/inputtext'
 
 export default class Busca extends Component {
 
@@ -11,21 +13,31 @@ export default class Busca extends Component {
 
   onTermoAlterado = (evento) => {
     console.log(evento.target.value)
+    this.setState({termoDeBusca: evento.target.value})
+  }
+
+  onFormSubmit = (evento) => {
+    evento.preventDefault()
+    this.props.onBuscaRealizada(this.state.termoDeBusca)
   }
 
   render() {
     return (
-      <div className='flex flex-column'>
-        <span
-          className='p-input-icon-left w-full'>
-            <i className='pi pi-search'></i>
-            <InputText 
-              className='w-full'
+      <form onSubmit={this.onFormSubmit}>
+        <div className='flex flex-column'>
+          <IconField iconPosition='left'>
+            <InputIcon className='pi pi-search'></InputIcon>
+            <InputText
+              value={this.state.termoDeBusca} 
               onChange={this.onTermoAlterado}
-              placeholder={this.props.dica}
-            />
-        </span>
-      </div>
+              className='w-full' 
+              placeholder={this.props.dica}/>
+          </IconField>
+          <Button 
+            label='OK'
+            className='p-button-outlined mt-2'/>
+        </div>
+      </form>
     )
   }
 }
