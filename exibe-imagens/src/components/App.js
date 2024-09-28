@@ -1,17 +1,39 @@
 // react arrow function component export: rafce
 import React from 'react'
 import Busca from './Busca'
-import { createClient } from 'pexels'
+// import { createClient } from 'pexels'
+import env from 'react-dotenv'
+import ListaImagem from './ListaImagem'
+import PexelsLogo from './PexelsLogo'
+import pexelsClient from '../utils/pexelsClient'
 export default class App extends React.Component {
 
-  pexelsClient = null
+  // pexelsClient = null
 
-  componentDidMount(){
-    pexelsClient = createClient('')
+  state = {
+    pics: []
   }
 
-  onBuscaRealizada = (termo) => {
-    console.log(termo)
+  // componentDidMount(){
+  //   this.pexelsClient = createClient(env.PEXELS_KEY)
+  // }
+
+  // onBuscaRealizada = (termo) => {
+  //   this.pexelsClient.photos.search({
+  //     query: termo
+  //   })
+  //   .then((pics) => {
+  //     this.setState({pics: pics.photos})
+  //   })
+  // }
+
+  onBuscaRealizada = async (termo) => {
+    const result = await pexelsClient.get('/search', {
+      params: {
+        query: termo
+      }
+    })
+    this.setState({pics: result.data.photos})
   }
 
   render(){
@@ -19,10 +41,21 @@ export default class App extends React.Component {
       <div
         className='grid justify-content-center m-auto w-9 border-round border-1 border-400'>
           <div className='col-12'>
+            <PexelsLogo />
+          </div>
+          <div className='col-12'>
             <h1>Exibir uma lista de...</h1>
           </div>
-          <div className='col-8'>
+          <div className='col-12'>
             <Busca onBuscaRealizada={this.onBuscaRealizada}/>
+          </div>
+          <div className='col-12'>
+            {/* [1, 2, 3] => [2, 4, 6] */}
+            <div className='grid'>
+              <ListaImagem 
+                imgStyle={'col-12 md:col-6 lg:col-4 xl:col-3'}
+                pics={this.state.pics} />
+            </div>
           </div>
       </div>
     )
